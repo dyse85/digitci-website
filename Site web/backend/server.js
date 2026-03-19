@@ -240,7 +240,10 @@ const app = express();
 const PORT = 3000;
 
 // Configurer les middlewares
-app.use(cors());
+app.use(cors({
+    origin: ['https://digitci-website.vercel.app', 'https://digitci.ci', 'https://www.digitci.ci', 'http://localhost:3000', 'http://localhost:*'],
+    credentials: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static('../frontend')); // Servir les fichiers frontend

@@ -131,7 +131,7 @@ if (contactForm) {
                 // ============================================
                 // fetch() = fonction pour communiquer avec le serveur
                 
-                const response = await fetch('http://localhost:3000/api/contact', {
+                const response = await fetch('https://digitci-backend.onrender.com/api/contact', {
                     // method: 'POST' = envoyer des données (POST = créer quelque chose)
                     method: 'POST',
                     
