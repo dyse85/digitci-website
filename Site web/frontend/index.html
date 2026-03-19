@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="logo1.png">
+    <title>DigitCI Agency - Design Digital & Développement Web</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navigation / Header -->
+    <header class="navbar">
+        <div class="container">
+            <div class="navbar-content">
+                <a href="" class="logo"><img src="logo1.png" alt="DigitCI Agency" class="logo-img"></a>
+                <button class="burger-menu" id="burgerBtn">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </button>
+                <nav class="nav-menu">
+                    <a href="#services" class="nav-link">Services</a>
+                    <a href="#portfolio" class="nav-link">Portfolio</a>
+                    <a href="#about" class="nav-link">À propos</a>
+                    <a href="#contact" class="nav-link cta-btn">Devis</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    On crée. On maintient. <span>Vous grandissez.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Sites performants, design sur-mesure et maintenance proactive pour que votre présence en ligne ne soit jamais un souci.
+                </p>
+                <button class="hero-cta" id="heroBtn">Commencer un projet</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Nos Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">🎨</div>
+                    <a href="#contact"><h3>Design Digital</h3></a>
+                    <p>Créations visuelles modernes et captivantes adaptées à votre identité de marque. Designs responsifs et innovants.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">💻</div>
+                    <a href="#contact"><h3>Développement Web</h3></a>
+                    <p>Sites performants et rapides construits avec les dernières technologies. Solutions sur mesure pour vos besoins.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🔍</div>
+                    <a href="#contact"><h3>SEO & Content</h3></a>
+                    <p>Optimisation pour moteurs de recherche et contenu stratégique. Augmentez votre visibilité en ligne.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">🛠️</div>
+                    <a href="#contact"><h3>Maintenance</h3></a>
+                    <p>Support technique continu et mises à jour régulières. Gardez votre site sécurisé et performant.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">✨</div>
+                    <a href="#contact"><h3>UI/UX Design</h3></a>
+                    <p>Interfaces intuitives centrées sur l'expérience utilisateur. Designs qui convertissent vos visiteurs.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">📱</div>
+                    <a href="#contact"><h3>Mobile First</h3></a>
+                    <p>Designs optimisés pour tous les appareils. Responsive et performant sur mobile, tablette et desktop.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <h2 class="section-title">Nos Projets</h2>
+            <div class="portfolio-grid">
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #ff8c00 0%, #ffb84d 100%);"></div>
+                    <h3>E-Commerce Moderne</h3>
+                    <p>Plateforme de vente en ligne complète avec design épuré et UX optimisée</p>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #003d99 0%, #1a3d66 100%);"></div>
+                    <h3>Site Institutionnel</h3>
+                    <p>Site vitrine professionnel pour une grande entreprise avec section blog</p>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, #ff8c00 0%, #003d99 100%);"></div>
+                    <h3>Application Web</h3>
+                    <p>Plateforme interactive avec authentification et gestion utilisateur avancée</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">À propos de DigitCI</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>DigitCI Agency est une équipe créative basée à Abidjan, spécialisée dans la création d'expériences digitales sur mesure. Nous accompagnons les entreprises de toutes tailles dans leur transformation digitale.</p>
+                    <p>Nous combinons stratégie, design et technologie pour transformer votre vision en réalité digitale impactante. Chaque projet est unique et mérite une attention particulière.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Parlons de votre projet</h2>
+            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mnjgobva" method="post">
+                <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
+                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
+                <input type="text" id="subject" name="subject" placeholder="Votre numéro de téléphone" required>
+                <textarea id="message" name="message" placeholder="Dites ce que vous voulez et décrivez votre projet en détail..." rows="6" required></textarea>
+                <button type="submit" class="submit-btn">Envoyer ma demande</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>DigitCI</h4>
+                    <p>Votre partenaire en transformation digitale</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Services</h4>
+                    <ul>
+                        <li><a href="#services">Design Digital</a></li>
+                        <li><a href="#services">Développement Web</a></li>
+                        <li><a href="#services">SEO & Content</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="mailto:contact@digitci.com">contact@digitci.com</a></li>
+                        <li><a href="tel:+212612345678">+225 01 01 89 08 08</a></li>
+                        <li>Abidjan, Côte d'Ivoire</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 DigitCI Agency. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

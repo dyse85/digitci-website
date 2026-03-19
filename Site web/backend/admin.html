@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - DigitCI Agency</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #1a1a1a;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #ff8c00;
+            padding-bottom: 10px;
+        }
+
+        .controls {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        button {
+            background: #ff8c00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #ffb84d;
+            transform: translateY(-2px);
+        }
+
+        button.delete {
+            background: #ef4444;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+        }
+
+        button.delete:hover {
+            background: #dc2626;
+        }
+
+        .message {
+            background: #f9f9f9;
+            border-left: 4px solid #ff8c00;
+            padding: 20px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .message:hover {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .message-info {
+            flex: 1;
+        }
+
+        .message-name {
+            font-weight: 700;
+            color: #1a1a1a;
+            font-size: 1.1rem;
+        }
+
+        .message-email {
+            color: #666666;
+            font-size: 0.9rem;
+        }
+
+        .message-date {
+            color: #999999;
+            font-size: 0.85rem;
+        }
+
+        .message-subject {
+            font-weight: 600;
+            color: #ff8c00;
+            margin: 10px 0;
+        }
+
+        .message-text {
+            color: #333333;
+            line-height: 1.6;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .empty {
+            text-align: center;
+            padding: 40px;
+            color: #999999;
+        }
+
+        .stats {
+            background: linear-gradient(135deg, #ff8c00 0%, #ffb84d 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .stats p {
+            font-size: 1.2rem;
+            margin: 5px 0;
+        }
+
+        .stats strong {
+            font-size: 1.5rem;
+        }
+
+        .export-btn {
+            background: #3b82f6;
+        }
+
+        .export-btn:hover {
+            background: #2563eb;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .message-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .controls {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Admin - Messages Clients</h1>
+
+        <div class="stats">
+            <p>Total de messages: <strong id="totalMessages">0</strong></p>
+            <p>Dernière mise à jour: <span id="lastUpdate">--:--</span></p>
+        </div>
+
+        <div class="controls">
+            <button onclick="loadMessages()">🔄 Actualiser</button>
+            <button class="export-btn" onclick="exportToCSV()">📥 Exporter en CSV</button>
+            <button onclick="deleteAllMessages()">🗑️ Supprimer tous les messages</button>
+        </div>
+
+        <div id="messagesContainer">
+            <div class="loading">Chargement des messages...</div>
+        </div>
+    </div>
+
+    <script>
+        // Charger les messages au démarrage
+        loadMessages();
+
+        // Actualiser toutes les 10 secondes
+        setInterval(loadMessages, 10000);
+
+        // FONCTION : Charger les messages
+        async function loadMessages() {
+            try {
+                const response = await fetch('http://localhost:3000/api/messages');
+                const messages = await response.json();
+
+                const container = document.getElementById('messagesContainer');
+
+                if (messages.length === 0) {
+                    container.innerHTML = '<div class="empty">📭 Aucun message pour le moment</div>';
+                    document.getElementById('totalMessages').textContent = '0';
+                    return;
+                }
+
+                // Trier les messages par date (plus récent en premier)
+                messages.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                // Créer le HTML des messages
+                container.innerHTML = messages.map(msg => `
+                    <div class="message">
+                        <div class="message-header">
+                            <div class="message-info">
+                                <div class="message-name">${msg.name}</div>
+                                <div class="message-email">📧 ${msg.email}</div>
+                                <div class="message-date">⏰ ${msg.date}</div>
+                            </div>
+                            <button class="delete" onclick="deleteMessage(${msg.id})">Supprimer</button>
+                        </div>
+                        <div class="message-subject">Sujet: ${msg.subject}</div>
+                        <div class="message-text">${msg.message}</div>
+                    </div>
+                `).join('');
+
+                // Mettre à jour le total et l'heure
+                document.getElementById('totalMessages').textContent = messages.length;
+                document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('fr-FR');
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                document.getElementById('messagesContainer').innerHTML = 
+                    '<div class="empty">❌ Erreur de connexion au serveur</div>';
+            }
+        }
+
+        // FONCTION : Supprimer un message
+        async function deleteMessage(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer ce message?')) {
+                try {
+                    const response = await fetch(`http://localhost:3000/api/messages/${id}`, {
+                        method: 'DELETE'
+                    });
+                    const data = await response.json();
+                    
+                    if (data.success) {
+                        console.log('✅ Message supprimé');
+                        loadMessages(); // Rafraîchir la liste
+                    }
+                } catch (error) {
+                    console.error('Erreur:', error);
+                    alert('Erreur lors de la suppression');
+                }
+            }
+        }
+
+        // FONCTION : Supprimer tous les messages
+        async function deleteAllMessages() {
+            if (confirm('⚠️ Êtes-vous VRAIMENT sûr? Cela supprimera TOUS les messages!')) {
+                try {
+                    const response = await fetch('http://localhost:3000/api/messages');
+                    const messages = await response.json();
+
+                    // Supprimer tous les messages
+                    for (let msg of messages) {
+                        await fetch(`http://localhost:3000/api/messages/${msg.id}`, {
+                            method: 'DELETE'
+                        });
+                    }
+
+                    console.log('✅ Tous les messages supprimés');
+                    loadMessages();
+                } catch (error) {
+                    console.error('Erreur:', error);
+                }
+            }
+        }
+
+        // FONCTION : Exporter en CSV
+        async function exportToCSV() {
+            try {
+                const response = await fetch('http://localhost:3000/api/messages');
+                const messages = await response.json();
+
+                if (messages.length === 0) {
+                    alert('Aucun message à exporter');
+                    return;
+                }
+
+                // Créer le CSV
+                let csv = 'Nom,Email,Sujet,Message,Date\n';
+                messages.forEach(msg => {
+                    csv += `"${msg.name}","${msg.email}","${msg.subject}","${msg.message.replace(/"/g, '""')}","${msg.date}"\n`;
+                });
+
+                // Télécharger le fichier
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `messages-digitci-${new Date().toLocaleDateString('fr-FR')}.csv`;
+                a.click();
+
+                console.log('✅ Fichier CSV téléchargé');
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Erreur lors de l\'export');
+            }
+        }
+    </script>
+</body>
+</html>
