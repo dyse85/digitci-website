@@ -241,7 +241,7 @@ const PORT = 3000;
 
 // Configurer les middlewares
 app.use(cors({
-    origin: ['https://digitci-website.vercel.app', 'https://digitci.ci', 'https://www.digitci.ci', 'http://localhost:3000', 'http://localhost:*'],
+    origin: ['https://digitci-website.vercel.app', 'https://digitci.ci', 'https://www.digitci.ci', 'http://localhost:3000', 'http://localhost:5500'],
     credentials: true
 }));
 app.use(bodyParser.json());
