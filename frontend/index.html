@@ -1,171 +1,975 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="logo1.png">
-    <title>DigitCI Agency - Design Digital & Développement Web</title>
-    <meta name="description" content="Agence web à Abidjan. Création de sites vitrines, maintenance et hébergement pour les PME en Côte d'Ivoire.">
-    <meta name="keywords" content="agence web Abidjan, création site web Côte d'Ivoire, site vitrine Abidjan, agence digitale Abidjan">
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DigitCI Agency — Création de sites web à Abidjan</title>
+  <meta name="description" content="DigitCI Agency, l'agence web de référence à Abidjan. Sites vitrines, maintenance et hébergement pour les PME de Côte d'Ivoire.">
+  <link rel="icon" href="logo1.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .hero {
+      min-height: 100vh;
+      background: var(--noir);
+      position: relative;
+      display: flex; align-items: center;
+      overflow: hidden;
+      padding-top: 80px;
+    }
+
+    /* Canvas particules */
+    #particles { position: absolute; inset: 0; z-index: 0; }
+
+    /* Lignes de grille subtiles */
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(249,115,22,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249,115,22,0.03) 1px, transparent 1px);
+      background-size: 80px 80px;
+      z-index: 1;
+    }
+
+    /* Glow central */
+    .hero-glow {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 800px; height: 800px;
+      background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 65%);
+      pointer-events: none; z-index: 1;
+    }
+
+    /* Ligne de code défilante */
+    .code-ticker {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 44px;
+      background: rgba(249,115,22,0.05);
+      border-top: 1px solid rgba(249,115,22,0.1);
+      overflow: hidden; z-index: 2;
+      display: flex; align-items: center;
+    }
+    .code-ticker-inner {
+      display: flex; gap: 60px;
+      white-space: nowrap;
+      animation: tickerScroll 30s linear infinite;
+      font-family: 'Courier New', monospace;
+      font-size: 11px; color: rgba(249,115,22,0.5);
+    }
+    @keyframes tickerScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    .hero-inner {
+      position: relative; z-index: 3;
+      max-width: 1280px; margin: 0 auto;
+      padding: 0 64px 60px;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px;
+    }
+    .hero-dot {
+      width: 8px; height: 8px;
+      background: var(--orange);
+      border-radius: 50%;
+      animation: dotPulse 2s ease-in-out infinite;
+    }
+    @keyframes dotPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(249,115,22,0.4); }
+      50%      { box-shadow: 0 0 0 8px rgba(249,115,22,0); }
+    }
+    .hero-eyebrow span {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--orange);
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 6vw, 82px);
+      font-weight: 800; line-height: 1.02;
+      margin-bottom: 28px; letter-spacing: -0.02em;
+    }
+    .hero-title .line { display: block; overflow: hidden; }
+    .hero-title .line-inner {
+      display: block;
+      transform: translateY(100%);
+      animation: lineReveal 0.9s var(--ease-out) forwards;
+    }
+    .hero-title .line:nth-child(2) .line-inner { animation-delay: 0.12s; }
+    .hero-title .line:nth-child(3) .line-inner { animation-delay: 0.24s; }
+    @keyframes lineReveal {
+      to { transform: translateY(0); }
+    }
+    .hero-title .accent { color: var(--orange); }
+
+    .hero-sub {
+      font-size: 16px; color: var(--gris-light);
+      line-height: 1.85; margin-bottom: 44px;
+      max-width: 460px;
+      opacity: 0; animation: fadeIn 0.8s 0.5s forwards;
+    }
+    @keyframes fadeIn { to { opacity: 1; } }
+
+    .hero-actions {
+      display: flex; gap: 14px; flex-wrap: wrap;
+      opacity: 0; animation: fadeIn 0.8s 0.65s forwards;
+    }
+
+    .hero-stats {
+      display: flex; gap: 40px;
+      margin-top: 56px; padding-top: 40px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      opacity: 0; animation: fadeIn 0.8s 0.8s forwards;
+    }
+    .hs-num {
+      font-family: var(--font-display);
+      font-size: 36px; font-weight: 800;
+      color: var(--orange); display: block; line-height: 1;
+    }
+    .hs-lbl {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gris); margin-top: 5px;
+    }
+
+    /* Visuel droite hero */
+    .hero-visual {
+      position: relative;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-phone {
+      width: 280px;
+      background: var(--noir-3);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 20px 16px;
+      position: relative; z-index: 2;
+      animation: phoneFloat 6s ease-in-out infinite;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(249,115,22,0.05);
+    }
+    @keyframes phoneFloat {
+      0%,100% { transform: translateY(0) rotate(-1deg); }
+      50%      { transform: translateY(-16px) rotate(1deg); }
+    }
+    .phone-bar {
+      height: 3px; background: linear-gradient(90deg, var(--orange), var(--bleu));
+      border-radius: 2px; margin-bottom: 16px;
+    }
+    .phone-url {
+      background: var(--noir-4);
+      border-radius: 6px; padding: 7px 10px;
+      font-family: 'Courier New', monospace;
+      font-size: 10px; color: var(--gris);
+      margin-bottom: 12px;
+    }
+    .phone-url span { color: var(--orange); }
+    .phone-img {
+      width: 100%; aspect-ratio: 9/16;
+      background: var(--noir-4);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+    .phone-img-content {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, var(--bleu) 0%, var(--noir-3) 50%, rgba(249,115,22,0.15) 100%);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+    }
+    .phone-logo-preview {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 800;
+      color: var(--blanc);
+    }
+    .phone-logo-preview span { color: var(--orange); }
+    .phone-bar-preview { width: 60%; height: 2px; background: var(--orange); border-radius: 1px; }
+    .phone-lines { display: flex; flex-direction: column; gap: 6px; width: 70%; }
+    .phone-line { height: 6px; background: rgba(255,255,255,0.12); border-radius: 3px; }
+    .phone-line:nth-child(2) { width: 80%; }
+    .phone-line:nth-child(3) { width: 60%; }
+
+    /* Cards flottantes */
+    .float-card {
+      position: absolute;
+      background: var(--noir-4);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 12px;
+      padding: 16px 18px;
+      animation: phoneFloat 5s ease-in-out infinite;
+      backdrop-filter: blur(20px);
+    }
+    .fc-1 { bottom: 40px; left: -40px; animation-delay: -1s; }
+    .fc-2 { top: 60px; right: -30px; animation-delay: -2.5s; }
+    .fc-label { font-size: 10px; color: var(--gris); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+    .fc-value { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--blanc); }
+    .fc-value span { color: var(--orange); }
+    .fc-sub { font-size: 10px; color: var(--gris); margin-top: 2px; }
+    .fc-dot { width: 6px; height: 6px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 5px; }
+
+    /* ══════════════════════════════
+       SERVICES BANDE
+    ══════════════════════════════ */
+    .services-band {
+      background: var(--orange);
+      padding: 20px 0;
+      overflow: hidden;
+    }
+    .band-inner {
+      display: flex; gap: 60px; white-space: nowrap;
+      animation: bandScroll 20s linear infinite;
+    }
+    @keyframes bandScroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+    .band-item {
+      display: flex; align-items: center; gap: 12px;
+      font-family: var(--font-display);
+      font-size: 13px; font-weight: 700;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--noir); flex-shrink: 0;
+    }
+    .band-dot { width: 5px; height: 5px; background: var(--noir); border-radius: 50%; opacity: 0.4; }
+
+    /* ══════════════════════════════
+       SECTION SERVICES
+    ══════════════════════════════ */
+    .services {
+      padding: 120px 64px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .services-header {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 60px; align-items: end;
+      margin-bottom: 70px;
+    }
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; overflow: hidden;
+    }
+    .svc-card {
+      background: var(--noir-2);
+      padding: 44px 36px;
+      transition: background 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .svc-card::before {
+      content: '';
+      position: absolute; bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .svc-card:hover { background: var(--noir-3); }
+    .svc-card:hover::before { transform: scaleX(1); }
+    .svc-num {
+      font-family: var(--font-display);
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.2em; color: var(--orange);
+      margin-bottom: 28px;
+    }
+    .svc-icon { font-size: 32px; margin-bottom: 16px; }
+    .svc-name {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 10px;
+    }
+    .svc-desc { font-size: 13px; color: var(--gris-light); line-height: 1.7; }
+
+    /* ══════════════════════════════
+       POURQUOI NOUS
+    ══════════════════════════════ */
+    .pourquoi {
+      background: var(--noir-2);
+      padding: 120px 64px;
+    }
+    .pourquoi-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 100px; align-items: center;
+    }
+    .pq-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px; margin-top: 48px;
+    }
+    .pq-card {
+      background: var(--noir-3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px; padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pq-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-3px); }
+    .pq-icon { font-size: 28px; margin-bottom: 14px; }
+    .pq-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 6px;
+    }
+    .pq-desc { font-size: 12px; color: var(--gris-light); line-height: 1.6; }
+
+    /* Côté droit pourquoi */
+    .pq-right { position: relative; }
+    .pq-big-num {
+      font-family: var(--font-display);
+      font-size: clamp(80px, 10vw, 140px);
+      font-weight: 800;
+      color: rgba(249,115,22,0.06);
+      line-height: 1; position: absolute;
+      top: -40px; right: -20px;
+      pointer-events: none; user-select: none;
+    }
+    .pq-list { list-style: none; display: flex; flex-direction: column; gap: 18px; }
+    .pq-item {
+      display: flex; gap: 16px; align-items: flex-start;
+      padding: 20px 24px;
+      background: var(--noir-3);
+      border: 1px solid rgba(255,255,255,0.04);
+      border-radius: 8px;
+      transition: border-color 0.2s;
+    }
+    .pq-item:hover { border-color: rgba(249,115,22,0.2); }
+    .pq-check {
+      width: 24px; height: 24px;
+      background: var(--orange-dim);
+      border: 1px solid rgba(249,115,22,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--orange); font-size: 11px; flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .pq-item-title { font-size: 14px; font-weight: 600; color: var(--blanc); margin-bottom: 3px; }
+    .pq-item-desc { font-size: 12px; color: var(--gris-light); line-height: 1.5; }
+
+    /* ══════════════════════════════
+       PROCESSUS
+    ══════════════════════════════ */
+    .processus {
+      padding: 120px 64px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .proc-header { margin-bottom: 80px; }
+    .proc-steps {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 0; position: relative;
+    }
+    .proc-steps::before {
+      content: '';
+      position: absolute;
+      top: 28px; left: 12%; right: 12%;
+      height: 1px;
+      background: linear-gradient(90deg, var(--orange), rgba(249,115,22,0.1), var(--orange));
+    }
+    .proc-step { padding: 0 24px; }
+    .proc-num-wrap {
+      position: relative; margin-bottom: 28px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .proc-num {
+      width: 56px; height: 56px;
+      background: var(--noir);
+      border: 2px solid var(--orange);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display);
+      font-size: 18px; font-weight: 800;
+      color: var(--orange);
+      position: relative; z-index: 1;
+      transition: background 0.2s;
+    }
+    .proc-step:hover .proc-num { background: var(--orange); color: var(--noir); }
+    .proc-name {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 10px;
+      text-align: center;
+    }
+    .proc-desc { font-size: 13px; color: var(--gris-light); line-height: 1.7; text-align: center; }
+
+    /* ══════════════════════════════
+       TÉMOIGNAGES
+    ══════════════════════════════ */
+    .temoignages {
+      background: var(--bleu);
+      padding: 120px 64px;
+      position: relative; overflow: hidden;
+    }
+    .temoignages::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(249,115,22,0.08) 0%, transparent 60%);
+    }
+    .temo-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .temo-header { margin-bottom: 60px; }
+    .temo-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .temo-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 12px; padding: 32px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .temo-card:hover { border-color: rgba(249,115,22,0.3); transform: translateY(-4px); }
+    .temo-stars { color: var(--orange); font-size: 13px; letter-spacing: 3px; margin-bottom: 16px; }
+    .temo-text {
+      font-size: 14px; color: rgba(255,255,255,0.7);
+      line-height: 1.85; font-style: italic; margin-bottom: 24px;
+    }
+    .temo-text::before { content: '"'; font-size: 40px; color: var(--orange); line-height: 0; vertical-align: -14px; margin-right: 4px; font-family: var(--font-display); }
+    .temo-author { display: flex; gap: 12px; align-items: center; }
+    .temo-av {
+      width: 40px; height: 40px; border-radius: 50%;
+      background: var(--orange);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--font-display); font-size: 16px; font-weight: 700;
+      color: var(--noir); flex-shrink: 0;
+    }
+    .temo-name { font-size: 14px; font-weight: 600; color: var(--blanc); }
+    .temo-role { font-size: 11px; color: rgba(255,255,255,0.4); margin-top: 2px; }
+
+    /* ══════════════════════════════
+       CTA CONTACT
+    ══════════════════════════════ */
+    .cta-section {
+      padding: 120px 64px;
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: start;
+    }
+    .cta-title {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 4.5vw, 60px);
+      font-weight: 800; line-height: 1.05;
+      margin-bottom: 20px; letter-spacing: -0.02em;
+    }
+    .cta-sub { font-size: 15px; color: var(--gris-light); line-height: 1.8; margin-bottom: 36px; }
+    .cta-infos { display: flex; flex-direction: column; gap: 20px; }
+    .cta-info { display: flex; gap: 14px; align-items: center; }
+    .cta-info-icon {
+      width: 44px; height: 44px;
+      background: var(--orange-dim);
+      border: 1px solid rgba(249,115,22,0.2);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px; flex-shrink: 0;
+    }
+    .cta-info-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); }
+    .cta-info-val { font-size: 15px; font-weight: 500; color: var(--blanc); margin-top: 2px; }
+
+    .contact-form {
+      background: var(--noir-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px; padding: 44px;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: 10px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--gris); margin-bottom: 8px;
+    }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 6px; padding: 13px 16px;
+      font-family: var(--font-body); font-size: 14px;
+      color: var(--blanc); outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gris); }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--orange); }
+    .form-group select option { background: var(--noir-3); }
+    .form-group textarea { resize: vertical; min-height: 110px; }
+    .form-submit {
+      width: 100%; background: var(--orange); color: var(--noir);
+      border: none; padding: 15px;
+      font-family: var(--font-body); font-size: 12px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      border-radius: 6px; cursor: pointer;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .form-submit:hover { background: #fb923c; transform: translateY(-2px); }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .hero-inner { grid-template-columns: 1fr; padding: 0 32px 60px; }
+      .hero-visual { display: none; }
+      .services { padding: 80px 32px; }
+      .services-header { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr; }
+      .pourquoi { padding: 80px 32px; }
+      .pourquoi-inner { grid-template-columns: 1fr; }
+      .processus { padding: 80px 32px; }
+      .proc-steps { grid-template-columns: 1fr 1fr; }
+      .proc-steps::before { display: none; }
+      .temoignages { padding: 80px 32px; }
+      .temo-grid { grid-template-columns: 1fr; }
+      .cta-section { grid-template-columns: 1fr; padding: 80px 32px; }
+    }
+    @media (max-width: 768px) {
+      .hero-inner { padding: 0 20px 60px; }
+      .services { padding: 60px 20px; }
+      .pourquoi { padding: 60px 20px; }
+      .pq-grid { grid-template-columns: 1fr; }
+      .processus { padding: 60px 20px; }
+      .proc-steps { grid-template-columns: 1fr 1fr; }
+      .temoignages { padding: 60px 20px; }
+      .cta-section { padding: 60px 20px; }
+      .form-row { grid-template-columns: 1fr; }
+      .hero-stats { gap: 24px; }
+      .contact-form { padding: 28px 20px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation / Header -->
-    <header class="navbar">
-        <div class="container">
-            <div class="navbar-content">
-                <a href="" class="logo"><img src="logo1.png" alt="DigitCI Agency" class="logo-img"></a>
-                <button class="burger-menu" id="burgerBtn">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </button>
-                <nav class="nav-menu">
-                    <a href="#services" class="nav-link">Services</a>
-                    <a href="#portfolio" class="nav-link">Portfolio</a>
-                    <a href="#about" class="nav-link">À propos</a>
-                    <a href="#contact" class="nav-link cta-btn">Devis</a>
-                </nav>
-            </div>
-        </div>
-    </header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <h1 class="hero-title">
-                    On crée. On maintient. <span>Vous grandissez.</span>
-                </h1>
-                <p class="hero-subtitle">
-                    Sites performants, design sur-mesure et maintenance proactive pour que votre présence en ligne ne soit jamais un souci.
-                </p>
-                <button class="hero-cta" id="heroBtn">Commencer un projet</button>
-            </div>
-        </div>
-    </section>
+<!-- GRAIN -->
+<div class="grain"></div>
 
-    <!-- Services Section -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2 class="section-title">Nos Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">🎨</div>
-                    <a href="#contact"><h3>Design Digital</h3></a>
-                    <p>Créations visuelles modernes et captivantes adaptées à votre identité de marque. Designs responsifs et innovants.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">💻</div>
-                    <a href="#contact"><h3>Développement Web</h3></a>
-                    <p>Sites performants et rapides construits avec les dernières technologies. Solutions sur mesure pour vos besoins.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🔍</div>
-                    <a href="#contact"><h3>SEO & Content</h3></a>
-                    <p>Optimisation pour moteurs de recherche et contenu stratégique. Augmentez votre visibilité en ligne.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">🛠️</div>
-                    <a href="#contact"><h3>Maintenance</h3></a>
-                    <p>Support technique continu et mises à jour régulières. Gardez votre site sécurisé et performant.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">✨</div>
-                    <a href="#contact"><h3>UI/UX Design</h3></a>
-                    <p>Interfaces intuitives centrées sur l'expérience utilisateur. Designs qui convertissent vos visiteurs.</p>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">📱</div>
-                    <a href="#contact"><h3>Mobile First</h3></a>
-                    <p>Designs optimisés pour tous les appareils. Responsive et performant sur mobile, tablette et desktop.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- CURSEUR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
 
-    <!-- Portfolio Section -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2 class="section-title">Nos Projets</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #ff8c00 0%, #ffb84d 100%);"></div>
-                    <h3>E-Commerce Moderne</h3>
-                    <p>Plateforme de vente en ligne complète avec design épuré et UX optimisée</p>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #003d99 0%, #1a3d66 100%);"></div>
-                    <h3>Site Institutionnel</h3>
-                    <p>Site vitrine professionnel pour une grande entreprise avec section blog</p>
-                </div>
-                <div class="portfolio-item">
-                    <div class="portfolio-image" style="background: linear-gradient(135deg, #ff8c00 0%, #003d99 100%);"></div>
-                    <h3>Application Web</h3>
-                    <p>Plateforme interactive avec authentification et gestion utilisateur avancée</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- NAVBAR -->
+<header class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo1.png" alt="DigitCI Agency">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html" class="active">Accueil</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="#contact" class="nav-cta">Démarrer un projet</a></li>
+  </ul>
+  <div class="burger" id="burger">
+    <span></span><span></span><span></span>
+  </div>
+</header>
 
-    <!-- About Section -->
-    <section id="about" class="about">
-        <div class="container">
-            <h2 class="section-title">À propos de DigitCI</h2>
-            <div class="about-content">
-                <div class="about-text">
-                    <p>DigitCI Agency est une équipe créative basée à Abidjan, spécialisée dans la création d'expériences digitales sur mesure. Nous accompagnons les entreprises de toutes tailles dans leur transformation digitale.</p>
-                    <p>Nous combinons stratégie, design et technologie pour transformer votre vision en réalité digitale impactante. Chaque projet est unique et mérite une attention particulière.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- HERO -->
+<section class="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <h2 class="section-title">Parlons de votre projet</h2>
-            <form class="contact-form" id="contactForm" action="https://formspree.io/f/mnjgobva" method="post">
-                <input type="text" id="name" name="name" placeholder="Votre nom complet" required>
-                <input type="email" id="email" name="email" placeholder="Votre adresse email" required>
-                <input type="text" id="number" name="number" placeholder="Votre numéro de téléphone" required>
-                <textarea id="message" name="message" placeholder="Dites ce que vous voulez et décrivez votre projet en détail..." rows="6" required></textarea>
-                <button type="submit" class="submit-btn">Envoyer ma demande</button>
-            </form>
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">
+        <div class="hero-dot"></div>
+        <span>Agence Web · Abidjan, Côte d'Ivoire</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="line"><span class="line-inner">Votre présence</span></span>
+        <span class="line"><span class="line-inner accent">en ligne,</span></span>
+        <span class="line"><span class="line-inner">repensée.</span></span>
+      </h1>
+      <p class="hero-sub">
+        DigitCI Agency crée des images digitales reélles pour les entreprises de Côte d'Ivoire. Design sur-mesure, livraison rapide, maintenance garantie.
+      </p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-orange btn-arrow">Démarrer un projet</a>
+        <a href="portfolio.html" class="btn btn-outline">Voir nos réalisations</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <span class="hs-num" data-count="15">0</span>
+          <span class="hs-lbl">Sites livrés</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>DigitCI</h4>
-                    <p>Votre partenaire en transformation digitale</p>
-                </div>
-                <div class="footer-section">
-                    <h4>Services</h4>
-                    <ul>
-                        <li><a href="#services">Design Digital</a></li>
-                        <li><a href="#services">Développement Web</a></li>
-                        <li><a href="#services">SEO & Content</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li><a href="mailto:contact@digitci.com">contact@digitci.com</a></li>
-                        <li><a href="tel:+22501010890808">+225 01 01 89 08 08</a></li>
-                        <li>Abidjan, Côte d'Ivoire</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 DigitCI Agency. Tous droits réservés.</p>
-            </div>
+        <div>
+          <span class="hs-num" data-count="10">0</span>
+          <span class="hs-lbl">Jours délai moyen</span>
         </div>
-    </footer>
+        <div>
+          <span class="hs-num">100%</span>
+          <span class="hs-lbl">Clients satisfaits</span>
+        </div>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+    <div class="hero-visual">
+      <div class="float-card fc-1">
+        <div class="fc-label">Statut</div>
+        <div class="fc-value"><span class="fc-dot"></span>En ligne</div>
+        <div class="fc-sub">digitci.ci · SSL actif</div>
+      </div>
+      <div class="hero-phone">
+        <div class="phone-bar"></div>
+        <div class="phone-url"><span>https://</span>votresite.ci</div>
+        <div class="phone-img">
+          <div class="phone-img-content">
+            <div class="phone-logo-preview">Votresite<span>CI</span></div>
+            <div class="phone-bar-preview"></div>
+            <div class="phone-lines">
+              <div class="phone-line"></div>
+              <div class="phone-line"></div>
+              <div class="phone-line"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="float-card fc-2">
+        <div class="fc-label">Livraison</div>
+        <div class="fc-value"><span>10</span> jours</div>
+        <div class="fc-sub">Design inclus</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="code-ticker">
+    <div class="code-ticker-inner">
+      <span>const site = DigitCI.create({ design: 'premium', délai: '10j' });</span>
+      <span>🚀 Site mis en ligne · SSL activé · Domaine configuré</span>
+      <span>digitci.agency → On crée. On maintient. Vous grandissez.</span>
+      <span>html · css · javascript · react.js · node.js · wordpress · seo</span>
+      <span>const site = DigitCI.create({ design: 'premium', délai: '10j' });</span>
+      <span>🚀 Site mis en ligne · SSL activé · Domaine configuré</span>
+      <span>digitci.agency → On crée. On maintient. Vous grandissez.</span>
+      <span>html · css · javascript · react.js · node.js · wordpress · seo</span>
+    </div>
+  </div>
+</section>
+
+<!-- BANDE DÉFILANTE -->
+<div class="services-band">
+  <div class="band-inner">
+    <span class="band-item">Sites personnalisé <span class="band-dot"></span></span>
+    <span class="band-item">Formulaires de contact <span class="band-dot"></span></span>
+    <span class="band-item">Hébergement cloud <span class="band-dot"></span></span>
+    <span class="band-item">Maintenance mensuelle <span class="band-dot"></span></span>
+    <span class="band-item">Nom de domaine .ci <span class="band-dot"></span></span>
+    <span class="band-item">Design sur-mesure <span class="band-dot"></span></span>
+    <span class="band-item">Mobile responsive <span class="band-dot"></span></span>
+    <span class="band-item">Livraison 10 jours <span class="band-dot"></span></span>
+    <span class="band-item">Sites personnalisé <span class="band-dot"></span></span>
+    <span class="band-item">Formulaires de contact <span class="band-dot"></span></span>
+    <span class="band-item">Hébergement cloud <span class="band-dot"></span></span>
+    <span class="band-item">Maintenance mensuelle <span class="band-dot"></span></span>
+    <span class="band-item">Nom de domaine .ci <span class="band-dot"></span></span>
+    <span class="band-item">Design sur-mesure <span class="band-dot"></span></span>
+    <span class="band-item">Mobile responsive <span class="band-dot"></span></span>
+    <span class="band-item">Livraison 10 jours <span class="band-dot"></span></span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section>
+  <div class="services">
+    <div class="services-header">
+      <div class="reveal">
+        <span class="section-tag">Ce que nous faisons</span>
+        <h2 class="section-title">Des sites qui <em>convertissent</em></h2>
+      </div>
+      <div class="reveal">
+        <p class="section-sub">Chaque site que nous livrons est conçu pour attirer, convaincre et fidéliser les clients de votre entreprise.</p>
+        <a href="portfolio.html" class="btn btn-outline" style="margin-top:24px">Voir le portfolio</a>
+      </div>
+    </div>
+    <div class="services-grid">
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">01</div>
+        <div class="svc-icon">🌐</div>
+        <div class="svc-name">Site personnalisé</div>
+        <p class="svc-desc">Votre entreprise mérite une présence en ligne qui inspire confiance. On crée des sites élégants, rapides et adaptés à tous les écrans.</p>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">02</div>
+        <div class="svc-icon">📨</div>
+        <div class="svc-name">Formulaire & automatisation</div>
+        <p class="svc-desc">Recevez les demandes de vos clients directement par email et WhatsApp. Ne ratez plus aucune opportunité commerciale.</p>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">03</div>
+        <div class="svc-icon">🔧</div>
+        <div class="svc-name">Maintenance mensuelle</div>
+        <p class="svc-desc">On s'occupe de tout après la livraison. Mises à jour, modifications, renouvellements — vous gérez votre business, on gère votre site.</p>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">04</div>
+        <div class="svc-icon">🌍</div>
+        <div class="svc-name">Domaine & Hébergement</div>
+        <p class="svc-desc">Nom de domaine .ci ou .com et hébergement sécurisé. SSL inclus, uptime 99.9% garanti.</p>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">05</div>
+        <div class="svc-icon">📱</div>
+        <div class="svc-name">Design responsive</div>
+        <p class="svc-desc">Votre site s'adapte parfaitement à tous les appareils — mobile, tablette et desktop. Vos clients vous trouvent partout.</p>
+      </div>
+      <div class="svc-card reveal" style="transition-delay:0.1s">
+        <div class="svc-num">06</div>
+        <div class="svc-icon">⚡</div>
+        <div class="svc-name">Livraison express</div>
+        <p class="svc-desc">Votre site livré en 10 à 15 jours ouvrés. Processus simple, communication WhatsApp, résultat professionnel garanti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI NOUS -->
+<section class="pourquoi">
+  <div class="pourquoi-inner">
+    <div class="reveal-left">
+      <span class="section-tag">Pourquoi DigitCI</span>
+      <h2 class="section-title" style="margin-bottom:0">Ce qui nous <em>différencie</em></h2>
+      <div class="pq-grid">
+        <div class="pq-card">
+          <div class="pq-icon">🎯</div>
+          <div class="pq-title">100% PME ivoiriennes</div>
+          <p class="pq-desc">On connaît le marché local. On parle la même langue business que vous.</p>
+        </div>
+        <div class="pq-card">
+          <div class="pq-icon">💳</div>
+          <div class="pq-title">Paiement Mobile Money</div>
+          <p class="pq-desc">Orange Money, MTN Money, Moov Money Wave - pas besoin de carte bancaire.</p>
+        </div>
+        <div class="pq-card">
+          <div class="pq-icon">📞</div>
+          <div class="pq-title">Support WhatsApp</div>
+          <p class="pq-desc">On répond en quelques minutes, 7j/7. Pas de ticket, pas d'attente.</p>
+        </div>
+        <div class="pq-card">
+          <div class="pq-icon">🛡️</div>
+          <div class="pq-title">Prix transparents</div>
+          <p class="pq-desc">Devis fixe, aucune surprise cachée. Vous savez exactement ce que vous payez.</p>
+        </div>
+      </div>
+    </div>
+    <div class="pq-right reveal-right">
+      <div class="pq-big-num">4</div>
+      <ul class="pq-list">
+        <li class="pq-item">
+          <div class="pq-check">✓</div>
+          <div>
+            <div class="pq-item-title">Acompte de 50% à la commande</div>
+            <div class="pq-item-desc">Vous payez 50% pour démarrer, 50% à la livraison. Protection des deux côtés.</div>
+          </div>
+        </li>
+        <li class="pq-item">
+          <div class="pq-check">✓</div>
+          <div>
+            <div class="pq-item-title">2 cycles de révisions inclus</div>
+            <div class="pq-item-desc">On ajuste jusqu'à ce que vous soyez 100% satisfait, sans frais supplémentaires.</div>
+          </div>
+        </li>
+        <li class="pq-item">
+          <div class="pq-check">✓</div>
+          <div>
+            <div class="pq-item-title">1er mois de maintenance offert</div>
+            <div class="pq-item-desc">Testez notre service de maintenance gratuitement le premier mois après livraison.</div>
+          </div>
+        </li>
+        <li class="pq-item">
+          <div class="pq-check">✓</div>
+          <div>
+            <div class="pq-item-title">Votre site vous appartient</div>
+            <div class="pq-item-desc">Dès le paiement intégral, le site est à 100% votre propriété. Pas de dépendance.</div>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section>
+  <div class="processus">
+    <div class="proc-header reveal" style="text-align:center">
+      <span class="section-tag">Comment ça marche</span>
+      <h2 class="section-title">De l'idée au site en <em>4 étapes</em></h2>
+    </div>
+    <div class="proc-steps">
+      <div class="proc-step reveal">
+        <div class="proc-num-wrap"><div class="proc-num">01</div></div>
+        <div class="proc-name">Vous nous contactez</div>
+        <p class="proc-desc">Un message WhatsApp suffit. On répond en moins de 30 minutes avec un devis gratuit.</p>
+      </div>
+      <div class="proc-step reveal" style="transition-delay:0.1s">
+        <div class="proc-num-wrap"><div class="proc-num">02</div></div>
+        <div class="proc-name">Vous signez & payez 50%</div>
+        <p class="proc-desc">On démarre dès réception de l'acompte. Vous nous envoyez vos contenus (textes, logo, photos).</p>
+      </div>
+      <div class="proc-step reveal" style="transition-delay:0.2s">
+        <div class="proc-num-wrap"><div class="proc-num">03</div></div>
+        <div class="proc-name">On crée votre site</div>
+        <p class="proc-desc">Design, développement, tests mobile - on livre une première version en 10 à 15 jours.</p>
+      </div>
+      <div class="proc-step reveal" style="transition-delay:0.3s">
+        <div class="proc-num-wrap"><div class="proc-num">04</div></div>
+        <div class="proc-name">Mise en ligne & suivi</div>
+        <p class="proc-desc">Votre site est en ligne. On vous forme, on configure tout et on assure la maintenance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TÉMOIGNAGES -->
+<section class="temoignages">
+  <div class="temo-inner">
+    <div class="temo-header reveal">
+      <span class="section-tag">Ils nous font confiance</span>
+      <h2 class="section-title">Ce que disent <em>nos clients</em></h2>
+    </div>
+    <div class="temo-grid">
+      <div class="temo-card reveal">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-text">Service exceptionnel. Mon site a été livré en 12 jours, exactement comme je le voulais. Mes clients me disent qu'il inspire vraiment confiance.</p>
+        <div class="temo-author">
+          <div class="temo-av">K</div>
+          <div>
+            <div class="temo-name">Kouamé Didier</div>
+            <div class="temo-role">Restaurant Chez Kouamé · Cocody</div>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card reveal" style="transition-delay:0.1s">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-text">Je ne connaissais rien aux sites web. DigitCI a tout géré - le domaine, l'hébergement, la mise en ligne. Je n'avais qu'à valider. Très professionnel.</p>
+        <div class="temo-author">
+          <div class="temo-av">A</div>
+          <div>
+            <div class="temo-name">Amina Touré</div>
+            <div class="temo-role">Salon Beauté · Plateau</div>
+          </div>
+        </div>
+      </div>
+      <div class="temo-card reveal" style="transition-delay:0.2s">
+        <div class="temo-stars">★★★★★</div>
+        <p class="temo-text">Rapport qualité-prix imbattable. Pour le prix d'un mois de pub Facebook, j'ai un site qui travaille pour moi 24h/24. Je recommande à tous les entrepreneurs.</p>
+        <div class="temo-author">
+          <div class="temo-av">J</div>
+          <div>
+            <div class="temo-name">Juliette Assi</div>
+            <div class="temo-role">Service traiteur · Deux-Plateaux</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA CONTACT -->
+<section id="contact">
+  <div class="cta-section">
+    <div class="reveal-left">
+      <span class="section-tag">Démarrons ensemble</span>
+      <h2 class="cta-title">Votre site web en <em>10 jours.</em></h2>
+      <p class="cta-sub">Devis gratuit en moins de 30 minutes. Pas de jargon technique, juste des résultats concrets pour votre business.</p>
+      <div class="cta-infos">
+        <div class="cta-info">
+          <div class="cta-info-icon">📱</div>
+          <div>
+            <div class="cta-info-label">WhatsApp</div>
+            <div class="cta-info-val">+225 07 88 06 07 18</div>
+          </div>
+        </div>
+        <div class="cta-info">
+          <div class="cta-info-icon">📧</div>
+          <div>
+            <div class="cta-info-label">Email</div>
+            <div class="cta-info-val">digitciagency@outlook.fr</div>
+          </div>
+        </div>
+        <div class="cta-info">
+          <div class="cta-info-icon">🌍</div>
+          <div>
+            <div class="cta-info-label">Zone d'intervention</div>
+            <div class="cta-info-val">Toute la Côte d'Ivoire</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <form class="contact-form reveal-right" action="https://formspree.io/f/mnjgobva" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Votre nom</label>
+          <input type="text" name="nom" placeholder="Prénom et nom" required>
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" name="telephone" placeholder="+225 07 XX XX XX" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Votre secteur d'activité</label>
+        <select name="secteur" required>
+          <option value="" disabled selected>Choisir...</option>
+          <option>Restaurant / Alimentation</option>
+          <option>Beauté / Bien-être</option>
+          <option>Médical / Santé</option>
+          <option>Commerce / Boutique</option>
+          <option>Éducation / Formation</option>
+          <option>Événementiel</option>
+          <option>BTP / Immobilier</option>
+          <option>Autre</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Parlez-nous de votre projet</label>
+        <textarea name="message" placeholder="Décrivez votre activité et ce que vous attendez de votre site web..."></textarea>
+      </div>
+      <button type="submit" class="form-submit">Envoyer ma demande →</button>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo1.png" alt="DigitCI Agency" class="footer-logo">
+      <p>L'agence web de référence pour les PME de Côte d'Ivoire. Sites professionnels, livrés vite, maintenus longtemps.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="#contact">Site personnalisé</a></li>
+        <li><a href="#contact">Formulaire & automatisation</a></li>
+        <li><a href="#contact">Maintenance</a></li>
+        <li><a href="#contact">Domaine & Hébergement</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+2250788060718">+225 07 88 06 07 18</a></li>
+        <li><a href="mailto:digitciagency@outlook.fr">digitciagency@outlook.fr</a></li>
+        <li><a href="https://digitci.ci">www.digitci.ci</a></li>
+        <li><a href="#">Abidjan, Côte d'Ivoire</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>DigitCI Agency</span>. Tous droits réservés.</p>
+    <p>On crée. On maintient. <span>Vous grandissez.</span></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>

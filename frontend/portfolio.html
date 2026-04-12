@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio — DigitCI Agency</title>
+  <meta name="description" content="Découvrez les sites web créés par DigitCI Agency pour les entreprises de Côte d'Ivoire.">
+  <link rel="icon" href="logo1.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      padding: 160px 64px 100px;
+      background: var(--noir);
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 50% 60% at 80% 50%, rgba(249,115,22,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse 30% 40% at 10% 80%, rgba(30,45,90,0.3) 0%, transparent 50%);
+    }
+    .page-hero-inner { max-width: 1280px; margin: 0 auto; position: relative; z-index: 1; }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--gris);
+      letter-spacing: 0.08em; margin-bottom: 32px;
+    }
+    .breadcrumb a { color: var(--orange); }
+    .breadcrumb span { color: var(--gris-2); }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(48px, 7vw, 88px);
+      font-weight: 800; line-height: 1;
+      letter-spacing: -0.03em; margin-bottom: 24px;
+    }
+    .page-title em { color: var(--orange); font-style: normal; display: block; }
+    .page-sub { font-size: 16px; color: var(--gris-light); line-height: 1.8; max-width: 520px; }
+
+    /* ── COMPTEUR PROJETS ── */
+    .count-bar {
+      background: var(--noir-2);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 32px 64px;
+    }
+    .count-bar-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; gap: 60px; align-items: center;
+    }
+    .count-item {
+      display: flex; align-items: center; gap: 16px;
+    }
+    .count-num {
+      font-family: var(--font-display);
+      font-size: 42px; font-weight: 800;
+      color: var(--orange); line-height: 1;
+    }
+    .count-lbl { font-size: 13px; color: var(--gris); line-height: 1.5; }
+    .count-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.08); }
+
+    /* ── FILTRES ── */
+    .portfolio-page { max-width: 1280px; margin: 0 auto; padding: 80px 64px; }
+    .filters {
+      display: flex; flex-wrap: wrap; gap: 8px;
+      margin-bottom: 60px;
+    }
+    .filter-btn {
+      background: transparent;
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--gris-light);
+      padding: 9px 20px;
+      font-family: var(--font-body);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      border-radius: 2px; cursor: pointer;
+      transition: all 0.2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--orange); border-color: var(--orange);
+      color: var(--noir);
+    }
+
+    /* ── GRILLE PORTFOLIO ── */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    .portfolio-card {
+      position: relative; border-radius: 12px;
+      overflow: hidden;
+      background: var(--noir-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+      cursor: pointer;
+    }
+    .portfolio-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(249,115,22,0.3);
+      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(249,115,22,0.1);
+    }
+    .portfolio-card.featured { grid-column: span 2; }
+
+    .card-preview {
+      width: 100%; position: relative; overflow: hidden;
+    }
+    .portfolio-card:not(.featured) .card-preview { aspect-ratio: 16/10; }
+    .portfolio-card.featured .card-preview { aspect-ratio: 21/9; }
+
+    .card-img {
+      width: 100%; height: 100%;
+      transition: transform 0.5s var(--ease-out);
+    }
+    .portfolio-card:hover .card-img { transform: scale(1.03); }
+
+    /* Overlay au hover */
+    .card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(8,8,8,0.95) 0%, rgba(8,8,8,0.4) 40%, transparent 70%);
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; flex-direction: column;
+      justify-content: flex-end; padding: 32px;
+    }
+    .portfolio-card:hover .card-overlay { opacity: 1; }
+    .overlay-tag {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 8px;
+    }
+    .overlay-title {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 12px;
+    }
+    .overlay-link {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--orange); color: var(--noir);
+      padding: 10px 20px; border-radius: 2px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      transition: background 0.2s; align-self: flex-start;
+    }
+    .overlay-link:hover { background: #fb923c; }
+
+    /* Infos bas de carte */
+    .card-info { padding: 24px 28px 28px; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; }
+    .card-tag {
+      background: var(--noir-4);
+      border: 1px solid rgba(255,255,255,0.07);
+      color: var(--gris-light);
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 2px;
+    }
+    .card-name {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 6px;
+    }
+    .card-desc { font-size: 13px; color: var(--gris-light); line-height: 1.6; }
+    .card-footer {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-top: 18px; padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .card-sector { font-size: 12px; color: var(--gris); }
+    .card-link {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--orange);
+      display: flex; align-items: center; gap: 6px;
+      transition: gap 0.2s;
+    }
+    .card-link::after { content: '→'; transition: transform 0.2s; }
+    .portfolio-card:hover .card-link::after { transform: translateX(4px); }
+
+    /* ── PLACEHOLDER CARD ── */
+    .card-placeholder {
+      width: 100%; height: 100%;
+      background: var(--noir-3);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 12px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .placeholder-icon { font-size: 40px; opacity: 0.3; }
+    .placeholder-text {
+      font-size: 11px; color: var(--gris-2);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      text-align: center;
+    }
+
+    /* Carte "bientôt" */
+    .coming-soon {
+      background: var(--noir-3);
+      border: 1px dashed rgba(255,255,255,0.1);
+      border-radius: 12px;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      min-height: 280px; gap: 12px;
+      transition: border-color 0.2s;
+    }
+    .coming-soon:hover { border-color: rgba(249,115,22,0.25); }
+    .cs-icon { font-size: 32px; opacity: 0.3; }
+    .cs-title {
+      font-family: var(--font-display);
+      font-size: 16px; font-weight: 700;
+      color: var(--gris);
+    }
+    .cs-sub { font-size: 12px; color: var(--gris-2); }
+
+    /* ── CTA PORTFOLIO ── */
+    .portfolio-cta {
+      background: var(--bleu);
+      padding: 100px 64px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .portfolio-cta::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(249,115,22,0.1) 0%, transparent 60%);
+    }
+    .portfolio-cta-inner { max-width: 640px; margin: 0 auto; position: relative; z-index: 1; }
+    .portfolio-cta h2 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800; line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .portfolio-cta h2 em { color: var(--orange); font-style: normal; }
+    .portfolio-cta p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.8; margin-bottom: 36px; }
+
+    @media (max-width: 1024px) {
+      .page-hero { padding: 140px 32px 80px; }
+      .count-bar { padding: 28px 32px; }
+      .portfolio-page { padding: 60px 32px; }
+      .portfolio-grid { grid-template-columns: 1fr; }
+      .portfolio-card.featured { grid-column: span 1; }
+      .portfolio-cta { padding: 80px 32px; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 120px 20px 60px; }
+      .count-bar { padding: 24px 20px; }
+      .count-bar-inner { flex-wrap: wrap; gap: 28px; }
+      .count-divider { display: none; }
+      .portfolio-page { padding: 48px 20px; }
+      .portfolio-cta { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<header class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo1.png" alt="DigitCI Agency">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="portfolio.html" class="active">Portfolio</a></li>
+    <li><a href="apropos.html">À propos</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Démarrer un projet</a></li>
+  </ul>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="page-hero-inner">
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a>
+      <span>›</span>
+      <span style="color:var(--gris-light)">Portfolio</span>
+    </div>
+    <h1 class="page-title">
+      Nos
+      <em>réalisations.</em>
+    </h1>
+    <p class="page-sub">Chaque site que vous voyez ici a été conçu pour aider une entreprise ivoirienne à gagner en visibilité et en crédibilité en ligne.</p>
+  </div>
+</section>
+
+<!-- COMPTEURS -->
+<div class="count-bar">
+  <div class="count-bar-inner">
+    <div class="count-item">
+      <div class="count-num" data-count="15">0</div>
+      <div class="count-lbl">Sites<br>livrés</div>
+    </div>
+    <div class="count-divider"></div>
+    <div class="count-item">
+      <div class="count-num" data-count="6">0</div>
+      <div class="count-lbl">Secteurs<br>couverts</div>
+    </div>
+    <div class="count-divider"></div>
+    <div class="count-item">
+      <div class="count-num" data-count="100">0</div>
+      <div class="count-lbl">% clients<br>satisfaits</div>
+    </div>
+    <div class="count-divider"></div>
+    <div class="count-item">
+      <div class="count-num" data-count="10">0</div>
+      <div class="count-lbl">Jours délai<br>moyen</div>
+    </div>
+  </div>
+</div>
+
+<!-- PORTFOLIO -->
+<div class="portfolio-page">
+
+  <!-- Filtres -->
+  <div class="filters">
+    <button class="filter-btn active">Tous</button>
+    <button class="filter-btn">Restauration</button>
+    <button class="filter-btn">Événementiel</button>
+    <button class="filter-btn">Commerce</button>
+    <button class="filter-btn">Médical</button>
+    <button class="filter-btn">Beauté</button>
+  </div>
+
+  <!-- Grille -->
+  <div class="portfolio-grid">
+
+    <!-- PROJET 1 — JER Location (featured) -->
+    <div class="portfolio-card featured reveal">
+      <div class="card-preview">
+        <div class="card-placeholder card-img" style="background: linear-gradient(135deg, #1E2D5A 0%, #0A0A0A 40%, rgba(249,115,22,0.15) 100%);">
+          <div style="text-align:center; z-index:1; padding:40px;">
+            <div style="font-family:'Syne',sans-serif; font-size:42px; font-weight:800; color:#F8F8F8; margin-bottom:8px;">JER <span style='color:#F97316'>Location</span></div>
+            <div style="font-size:11px; letter-spacing:0.2em; color:rgba(255,255,255,0.4); text-transform:uppercase;">2 Plateaux Vallon · Abidjan</div>
+            <div style="width:60px; height:2px; background:#F97316; margin:20px auto;"></div>
+            <div style="display:flex; gap:20px; justify-content:center; margin-top:20px;">
+              <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:14px 20px; font-size:12px; color:rgba(255,255,255,0.6);">Bâches & Tentes</div>
+              <div style="background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:8px; padding:14px 20px; font-size:12px; color:rgba(255,255,255,0.6);">Chaises & Tables</div>
+              <div style="background:rgba(249,115,22,0.15); border:1px solid rgba(249,115,22,0.3); border-radius:8px; padding:14px 20px; font-size:12px; color:#F97316;">Vaisselles dorées</div>
+            </div>
+          </div>
+        </div>
+        <div class="card-overlay">
+          <span class="overlay-tag">Événementiel · Site multi-pages</span>
+          <div class="overlay-title">JER Location</div>
+          <a href="#" class="overlay-link" target="_blank">Voir le site →</a>
+        </div>
+      </div>
+      <div class="card-info">
+        <div class="card-tags">
+          <span class="card-tag">HTML/CSS</span>
+          <span class="card-tag">JavaScript</span>
+          <span class="card-tag">4 pages</span>
+          <span class="card-tag">Responsive</span>
+          <span class="card-tag">Catalogue & Tarifs</span>
+        </div>
+        <div class="card-name">JER Location — Site vitrine multi-pages</div>
+        <p class="card-desc">Site complet 4 pages pour une entreprise de location de matériel événementiel à Abidjan. Accueil, Services détaillés, Catalogue avec tarifs, Galerie de réalisations et formulaire de devis.</p>
+        <div class="card-footer">
+          <span class="card-sector">📍 2 Plateaux Vallon, Abidjan · Événementiel</span>
+          <a href="#" class="card-link" target="_blank">Visiter le site</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROJETS À VENIR -->
+    <div class="coming-soon reveal" style="transition-delay:0.1s">
+      <div class="cs-icon">⚡</div>
+      <div class="cs-title">Prochain projet</div>
+      <div class="cs-sub">En cours de création</div>
+    </div>
+
+    <div class="coming-soon reveal" style="transition-delay:0.2s">
+      <div class="cs-icon">🚀</div>
+      <div class="cs-title">Bientôt disponible</div>
+      <div class="cs-sub">Ajoutez votre projet ici</div>
+    </div>
+
+    <div class="coming-soon reveal" style="transition-delay:0.3s">
+      <div class="cs-icon">✨</div>
+      <div class="cs-title">Bientôt disponible</div>
+      <div class="cs-sub">Ajoutez votre projet ici</div>
+    </div>
+
+    <div class="coming-soon reveal" style="transition-delay:0.4s">
+      <div class="cs-icon">🎯</div>
+      <div class="cs-title">Bientôt disponible</div>
+      <div class="cs-sub">Ajoutez votre projet ici</div>
+    </div>
+
+  </div>
+
+  <!-- Note pour ajouter des projets -->
+  <div style="margin-top:48px; padding:24px 32px; background:var(--noir-2); border:1px solid rgba(249,115,22,0.15); border-radius:10px; display:flex; align-items:center; gap:16px;">
+    <span style="font-size:24px;">💡</span>
+    <div>
+      <div style="font-size:13px; font-weight:600; color:var(--blanc); margin-bottom:4px;">Les projets</div>
+      <div style="font-size:12px; color:var(--gris-light); line-height:1.6;">
+        Tous les projets de notre <code style="background:var(--noir-3); padding:2px 6px; border-radius:3px; color:var(--orange);">.portfolio</code> sont affichés ici, avec l'accord du client.</div>
+        <!-- Note pour ajouter des projets -->
+      <!--<div style="font-size:13px; font-weight:600; color:var(--blanc); margin-bottom:4px;">Pour ajouter un nouveau projet</div>
+      <div style="font-size:12px; color:var(--gris-light); line-height:1.6;">
+        Copiez le bloc <code style="background:var(--noir-3); padding:2px 6px; border-radius:3px; color:var(--orange);">.portfolio-card</code> du site JER Location, remplacez le nom, la description, le preview et les tags. Remplacez une carte <code style="background:var(--noir-3); padding:2px 6px; border-radius:3px; color:var(--orange);">.coming-soon</code>.
+      </div>-->
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="portfolio-cta">
+  <div class="portfolio-cta-inner">
+    <h2>Votre site sera notre <em>prochaine réalisation.</em></h2>
+    <p>Rejoignez les entreprises ivoiriennes qui nous font confiance pour leur présence en ligne.</p>
+    <a href="index.html#contact" class="btn btn-orange btn-arrow">Démarrer mon projet</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo1.png" alt="DigitCI Agency" class="footer-logo">
+      <p>L'agence web de référence pour les PME de Côte d'Ivoire. Sites professionnels, livrés vite, maintenus longtemps.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="index.html#contact">Site personnalisé</a></li>
+        <li><a href="index.html#contact">Formulaire & automatisation</a></li>
+        <li><a href="index.html#contact">Maintenance</a></li>
+        <li><a href="index.html#contact">Domaine & Hébergement</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+2250788060718">+225 07 88 06 07 18</a></li>
+        <li><a href="mailto:digitciagency@outlook.fr">digitciagency@outlook.fr</a></li>
+        <li><a href="https://digitci.ci">www.digitci.ci</a></li>
+        <li><a href="#">Abidjan, Côte d'Ivoire</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>DigitCI Agency</span>. Tous droits réservés.</p>
+    <p>On crée. On maintient. <span>Vous grandissez.</span></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

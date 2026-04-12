@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>À propos — DigitCI Agency</title>
+  <meta name="description" content="Découvrez DigitCI Agency, l'agence web spécialisée dans la création de sites pour les PME de Côte d'Ivoire.">
+  <link rel="icon" href="logo1.png" type="image/png">
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height: 70vh;
+      background: var(--noir);
+      padding: 160px 64px 80px;
+      position: relative; overflow: hidden;
+      display: flex; align-items: center;
+    }
+    .hero-grid {
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(249,115,22,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(249,115,22,0.025) 1px, transparent 1px);
+      background-size: 80px 80px;
+    }
+    .hero-glow {
+      position: absolute; top: 20%; right: 10%;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute; bottom: -100px; left: 5%;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(30,45,90,0.4) 0%, transparent 60%);
+      pointer-events: none;
+    }
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; z-index: 1; width: 100%;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 11px; color: var(--gris);
+      letter-spacing: 0.08em; margin-bottom: 32px;
+    }
+    .breadcrumb a { color: var(--orange); }
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(44px, 6vw, 76px);
+      font-weight: 800; line-height: 1.04;
+      letter-spacing: -0.03em; margin-bottom: 24px;
+    }
+    .page-title em { color: var(--orange); font-style: normal; display: block; }
+    .page-sub { font-size: 16px; color: var(--gris-light); line-height: 1.8; max-width: 480px; }
+
+    /* Visuel droite hero */
+    .hero-badge-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .hbg-card {
+      background: var(--noir-3);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 12px; padding: 28px 24px;
+      text-align: center;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .hbg-card:hover { border-color: rgba(249,115,22,0.2); transform: translateY(-3px); }
+    .hbg-card.orange { background: var(--orange); border-color: var(--orange); }
+    .hbg-num {
+      font-family: var(--font-display);
+      font-size: 42px; font-weight: 800;
+      color: var(--orange); line-height: 1;
+    }
+    .hbg-card.orange .hbg-num { color: var(--noir); }
+    .hbg-lbl { font-size: 12px; color: var(--gris-light); margin-top: 6px; line-height: 1.5; }
+    .hbg-card.orange .hbg-lbl { color: rgba(0,0,0,0.6); }
+
+    /* ── MISSION ── */
+    .mission {
+      background: var(--bleu);
+      padding: 100px 64px;
+      position: relative; overflow: hidden;
+    }
+    .mission::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 50% 70% at 20% 50%, rgba(249,115,22,0.08) 0%, transparent 60%);
+    }
+    .mission-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 80px; align-items: center;
+      position: relative; z-index: 1;
+    }
+    .mission-quote {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 38px);
+      font-weight: 700; line-height: 1.25;
+      color: var(--blanc);
+    }
+    .mission-quote em { color: var(--orange); font-style: normal; }
+    .mission-quote::before {
+      content: '"';
+      display: block;
+      font-size: 80px; color: var(--orange);
+      line-height: 0.8; margin-bottom: 16px;
+      font-family: var(--font-display);
+    }
+    .mission-text { font-size: 15px; color: rgba(255,255,255,0.65); line-height: 1.85; }
+    .mission-text p { margin-bottom: 16px; }
+    .mission-text p:last-child { margin-bottom: 0; }
+
+    /* ── VALEURS ── */
+    .valeurs {
+      padding: 100px 64px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .valeurs-header { margin-bottom: 60px; }
+    .valeurs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .valeur-card {
+      background: var(--noir-2);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px; padding: 40px 32px;
+      position: relative; overflow: hidden;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .valeur-card:hover { border-color: rgba(249,115,22,0.25); transform: translateY(-4px); }
+    .valeur-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--orange), transparent);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.3s;
+    }
+    .valeur-card:hover::before { transform: scaleX(1); }
+    .valeur-num {
+      font-family: var(--font-display);
+      font-size: 64px; font-weight: 800;
+      color: rgba(249,115,22,0.06);
+      position: absolute; top: 16px; right: 20px;
+      line-height: 1; pointer-events: none;
+    }
+    .valeur-icon { font-size: 36px; margin-bottom: 20px; }
+    .valeur-title {
+      font-family: var(--font-display);
+      font-size: 20px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 10px;
+    }
+    .valeur-desc { font-size: 13px; color: var(--gris-light); line-height: 1.7; }
+
+    /* ── POURQUOI ── */
+    .pourquoi-ap {
+      background: var(--noir-2);
+      padding: 100px 64px;
+    }
+    .pourquoi-ap-inner { max-width: 1280px; margin: 0 auto; }
+    .pq-ap-header { margin-bottom: 60px; }
+    .pq-ap-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+    .pq-ap-card {
+      display: flex; gap: 20px;
+      background: var(--noir-3);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 10px; padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .pq-ap-card:hover { border-color: rgba(249,115,22,0.2); transform: translateY(-2px); }
+    .pq-ap-num {
+      font-family: var(--font-display);
+      font-size: 32px; font-weight: 800;
+      color: rgba(249,115,22,0.2);
+      line-height: 1; flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .pq-ap-card:hover .pq-ap-num { color: var(--orange); }
+    .pq-ap-title {
+      font-family: var(--font-display);
+      font-size: 17px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 6px;
+    }
+    .pq-ap-desc { font-size: 13px; color: var(--gris-light); line-height: 1.6; }
+
+    /* ── TARIFS ── */
+    .tarifs {
+      padding: 100px 64px;
+      max-width: 1280px; margin: 0 auto;
+    }
+    .tarifs-header { margin-bottom: 60px; text-align: center; }
+    .tarifs-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+    .tarif-card {
+      background: var(--noir-2);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 14px; overflow: hidden;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+    }
+    .tarif-card:hover { transform: translateY(-6px); border-color: rgba(249,115,22,0.25); box-shadow: 0 24px 60px rgba(0,0,0,0.4); }
+    .tarif-card.featured {
+      border-color: var(--orange);
+      background: var(--noir-3);
+    }
+    .tarif-header { padding: 28px 28px 24px; background: var(--noir-3); }
+    .tarif-card.featured .tarif-header { background: var(--orange); }
+    .tarif-badge {
+      display: inline-block;
+      background: var(--orange); color: var(--noir);
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .tarif-card.featured .tarif-badge { background: var(--noir); color: var(--orange); }
+    .tarif-name {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 700;
+      color: var(--blanc); margin-bottom: 6px;
+    }
+    .tarif-card.featured .tarif-name { color: var(--noir); }
+    .tarif-target { font-size: 12px; color: rgba(255,255,255,0.45); }
+    .tarif-card.featured .tarif-target { color: rgba(0,0,0,0.55); }
+    .tarif-price {
+      font-family: var(--font-display);
+      font-size: 38px; font-weight: 800;
+      color: var(--orange); margin-top: 14px;
+    }
+    .tarif-card.featured .tarif-price { color: var(--noir); }
+    .tarif-price span { font-size: 14px; font-weight: 400; color: var(--gris); margin-left: 4px; }
+    .tarif-card.featured .tarif-price span { color: rgba(0,0,0,0.5); }
+    .tarif-body { padding: 28px; }
+    .tarif-items { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 28px; }
+    .tarif-items li {
+      font-size: 13px; color: var(--gris-light);
+      display: flex; gap: 10px; align-items: flex-start;
+    }
+    .tarif-items li::before { content: '✓'; color: var(--orange); font-weight: 700; flex-shrink: 0; }
+    .tarif-cta {
+      display: block; width: 100%; text-align: center;
+      padding: 12px; border-radius: 6px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      text-decoration: none;
+      transition: all 0.2s;
+      background: var(--orange-dim);
+      border: 1px solid rgba(249,115,22,0.3);
+      color: var(--orange);
+    }
+    .tarif-cta:hover { background: var(--orange); color: var(--noir); }
+    .tarif-card.featured .tarif-cta { background: var(--orange); color: var(--noir); border-color: var(--orange); }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--noir);
+      padding: 120px 64px;
+      text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(249,115,22,0.06) 0%, transparent 60%);
+    }
+    .cta-final-inner { max-width: 700px; margin: 0 auto; position: relative; z-index: 1; }
+    .cta-final-tag {
+      display: inline-block;
+      font-size: 10px; font-weight: 600;
+      letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--orange); margin-bottom: 20px;
+    }
+    .cta-final h2 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 5vw, 64px);
+      font-weight: 800; line-height: 1.04;
+      letter-spacing: -0.02em; margin-bottom: 20px;
+    }
+    .cta-final h2 em { color: var(--orange); font-style: normal; }
+    .cta-final p { font-size: 15px; color: var(--gris-light); line-height: 1.8; margin-bottom: 40px; }
+    .cta-final-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    @media (max-width: 1024px) {
+      .page-hero { padding: 140px 32px 80px; }
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-badge-grid { display: none; }
+      .mission { padding: 80px 32px; }
+      .mission-inner { grid-template-columns: 1fr; }
+      .valeurs { padding: 80px 32px; }
+      .valeurs-grid { grid-template-columns: 1fr; }
+      .pourquoi-ap { padding: 80px 32px; }
+      .pq-ap-grid { grid-template-columns: 1fr; }
+      .tarifs { padding: 80px 32px; }
+      .tarifs-grid { grid-template-columns: 1fr; }
+      .cta-final { padding: 80px 32px; }
+    }
+    @media (max-width: 768px) {
+      .page-hero { padding: 120px 20px 60px; }
+      .mission { padding: 60px 20px; }
+      .valeurs { padding: 60px 20px; }
+      .pourquoi-ap { padding: 60px 20px; }
+      .tarifs { padding: 60px 20px; }
+      .cta-final { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-follower" id="cursorFollower"></div>
+
+<header class="navbar" id="navbar">
+  <a href="index.html" class="nav-logo">
+    <img src="logo1.png" alt="DigitCI Agency">
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Accueil</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="apropos.html" class="active">À propos</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Démarrer un projet</a></li>
+  </ul>
+  <div class="burger" id="burger"><span></span><span></span><span></span></div>
+</header>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow-2"></div>
+  <div class="hero-inner">
+    <div>
+      <div class="breadcrumb">
+        <a href="index.html">Accueil</a>
+        <span>›</span>
+        <span style="color:var(--gris-light)">À propos</span>
+      </div>
+      <h1 class="page-title">
+        L'agence qui
+        <em>vous comprend.</em>
+      </h1>
+      <p class="page-sub">DigitCI Agency est née d'un constat simple : les PME ivoiriennes méritent des sites web à la hauteur de leurs ambitions, à des prix accessibles.</p>
+    </div>
+    <div class="hero-badge-grid">
+      <div class="hbg-card reveal-right">
+        <div class="hbg-num" data-count="15">0</div>
+        <div class="hbg-lbl">Sites web<br>livrés</div>
+      </div>
+      <div class="hbg-card orange reveal-right" style="transition-delay:0.1s">
+        <div class="hbg-num">10j</div>
+        <div class="hbg-lbl">Délai de<br>livraison moyen</div>
+      </div>
+      <div class="hbg-card reveal-right" style="transition-delay:0.2s">
+        <div class="hbg-num">7j/7</div>
+        <div class="hbg-lbl">Support<br>WhatsApp</div>
+      </div>
+      <div class="hbg-card reveal-right" style="transition-delay:0.3s">
+        <div class="hbg-num">100%</div>
+        <div class="hbg-lbl">Clients<br>satisfaits</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MISSION -->
+<section class="mission">
+  <div class="mission-inner">
+    <div class="reveal-left">
+      <blockquote class="mission-quote">
+        Le numérique ivoirien n'attend plus. Il <em>grandit</em> maintenant.
+      </blockquote>
+    </div>
+    <div class="reveal-right">
+      <div class="mission-text">
+        <p>En Côte d'Ivoire, des milliers de petites et moyennes entreprises n'ont pas encore de présence en ligne. Pas faute de volonté, mais faute d'un partenaire de confiance qui parle leur langue, comprend leurs contraintes et livre un résultat professionnel.</p>
+        <p>C'est exactement ce que DigitCI Agency fait. On va vers les entreprises, on leur explique pourquoi un site web change la donne, et on le leur crée, simplement, rapidement, sans jargon inutile.</p>
+        <p>Notre mission : rendre le web accessible à chaque entrepreneur ivoirien, qu'il soit à Cocody, à Yopougon, à Man ou à Korhogo.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section>
+  <div class="valeurs">
+    <div class="valeurs-header reveal">
+      <span class="section-tag">Ce qui nous guide</span>
+      <h2 class="section-title">Nos <em>valeurs</em></h2>
+    </div>
+    <div class="valeurs-grid">
+      <div class="valeur-card reveal">
+        <div class="valeur-num">01</div>
+        <div class="valeur-icon">🎯</div>
+        <div class="valeur-title">Résultats concrets</div>
+        <p class="valeur-desc">On ne vend pas des sites web. On vend de la crédibilité, de la visibilité et des clients supplémentaires pour votre business. Chaque décision design sert cet objectif.</p>
+      </div>
+      <div class="valeur-card reveal" style="transition-delay:0.1s">
+        <div class="valeur-num">02</div>
+        <div class="valeur-icon">🤝</div>
+        <div class="valeur-title">Transparence totale</div>
+        <p class="valeur-desc">Prix fixe, devis clair, pas de surprise cachée. Vous savez ce que vous payez avant de signer. Et votre site vous appartient à 100% dès le paiement intégral.</p>
+      </div>
+      <div class="valeur-card reveal" style="transition-delay:0.2s">
+        <div class="valeur-num">03</div>
+        <div class="valeur-icon">⚡</div>
+        <div class="valeur-title">Rapidité d'exécution</div>
+        <p class="valeur-desc">10 à 15 jours ouvrés de la commande à la mise en ligne. Parce que votre business ne peut pas attendre des mois pour avoir une présence web professionnelle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POURQUOI CHOISIR DIGITCI -->
+<section class="pourquoi-ap">
+  <div class="pourquoi-ap-inner">
+    <div class="pq-ap-header reveal">
+      <span class="section-tag">Pourquoi DigitCI</span>
+      <h2 class="section-title">Ce qui nous <em>différencie</em></h2>
+      <p class="section-sub">Il existe des dizaines d'agences web. Voici pourquoi nos clients nous choisissent et nous recommandent.</p>
+    </div>
+    <div class="pq-ap-grid">
+      <div class="pq-ap-card reveal">
+        <div class="pq-ap-num">01</div>
+        <div>
+          <div class="pq-ap-title">On connaît le marché ivoirien</div>
+          <p class="pq-ap-desc">On ne copie pas des templates européens. On crée des sites adaptés aux habitudes des consommateurs ivoiriens, au contexte local et aux secteurs qui marchent en Côte d'Ivoire.</p>
+        </div>
+      </div>
+      <div class="pq-ap-card reveal" style="transition-delay:0.1s">
+        <div class="pq-ap-num">02</div>
+        <div>
+          <div class="pq-ap-title">Paiement 100% local</div>
+          <p class="pq-ap-desc">Orange Money, MTN MoMo, Moov Money, Wave ou espèces. Pas besoin de carte bancaire, pas de transfert international. On s'adapte à votre façon de payer.</p>
+        </div>
+      </div>
+      <div class="pq-ap-card reveal" style="transition-delay:0.2s">
+        <div class="pq-ap-num">03</div>
+        <div>
+          <div class="pq-ap-title">Suivi WhatsApp réactif</div>
+          <p class="pq-ap-desc">Pas de formulaire de ticket, pas d'attente 48h. Vous nous envoyez un message WhatsApp et on répond rapidement. 7 jours sur 7, même le weekend.</p>
+        </div>
+      </div>
+      <div class="pq-ap-card reveal" style="transition-delay:0.3s">
+        <div class="pq-ap-num">04</div>
+        <div>
+          <div class="pq-ap-title">Hébergement local via SafariCloud</div>
+          <p class="pq-ap-desc">Vos sites sont hébergés chez SafariCloud, l'hébergeur de référence en Côte d'Ivoire. Uptime 99.9%, support francophone, paiement Mobile Money accepté.</p>
+        </div>
+      </div>
+      <div class="pq-ap-card reveal" style="transition-delay:0.4s">
+        <div class="pq-ap-num">05</div>
+        <div>
+          <div class="pq-ap-title">Maintenance incluse le 1er mois</div>
+          <p class="pq-ap-desc">Après la livraison, le premier mois de maintenance est offert. Testez gratuitement notre service avant de vous engager. Aucun risque de votre côté.</p>
+        </div>
+      </div>
+      <div class="pq-ap-card reveal" style="transition-delay:0.5s">
+        <div class="pq-ap-num">06</div>
+        <div>
+          <div class="pq-ap-title">Acompte sécurisé 50/50</div>
+          <p class="pq-ap-desc">50% à la commande pour démarrer, 50% à la livraison quand vous êtes satisfait. Ce modèle protège les deux parties et garantit notre engagement jusqu'au bout.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TARIFS -->
+<section>
+  <div class="tarifs">
+    <div class="tarifs-header reveal">
+      <span class="section-tag">Nos tarifs</span>
+      <h2 class="section-title">Des prix <em>transparents</em></h2>
+      <p class="section-sub">Pas de surprise. Vous savez exactement ce que vous payez avant de signer.</p>
+    </div>
+    <div class="tarifs-grid">
+      <div class="tarif-card reveal">
+        <div class="tarif-header">
+          <div class="tarif-name">Starter</div>
+          <div class="tarif-target">Site vitrine simple, à partir de</div>
+          <div class="tarif-price">150 000<span>FCFA</span></div>
+        </div>
+        <div class="tarif-body">
+          <ul class="tarif-items">
+            <li>Site vitrine 3-4 pages</li>
+            <li>Design responsive mobile</li>
+            <li>Formulaire de contact</li>
+            <li>Nom de domaine .ci ou .com</li>
+            <li>Hébergement 1 an</li>
+            <li>SSL inclus</li>
+            <li>1 mois de maintenance offert</li>
+          </ul>
+          <a href="index.html#contact" class="tarif-cta">Démarrer ce projet</a>
+        </div>
+      </div>
+      <div class="tarif-card featured reveal" style="transition-delay:0.1s">
+        <div class="tarif-header">
+          <span class="tarif-badge">Le plus choisi</span>
+          <div class="tarif-name">Pro</div>
+          <div class="tarif-target">Site complet, à partir de</div>
+          <div class="tarif-price">250 000<span>FCFA</span></div>
+        </div>
+        <div class="tarif-body">
+          <ul class="tarif-items">
+            <li>nombre de pages personnalisé</li>
+            <li>Design premium sur-mesure</li>
+            <li>Formulaire de contact avancé</li>
+            <li>Mobile responsive</li>
+            <li>Nom de domaine .ci ou .com</li>
+            <li>Hébergement 1 an</li>
+            <li>SSL inclus</li>
+            <li>Section galerie photos</li>
+            <li>1 mois de maintenance offert</li>
+            <li>Fonctionnalités avancées</li> 
+          </ul>
+          <a href="index.html#contact" class="tarif-cta">Démarrer ce projet</a>
+        </div>
+      </div>
+      <div class="tarif-card reveal" style="transition-delay:0.2s">
+        <div class="tarif-header">
+          <div class="tarif-name">Maintenance</div>
+          <div class="tarif-target">Suivi mensuel</div>
+          <div class="tarif-price">25 000<span>FCFA / mois</span></div>
+        </div>
+        <div class="tarif-body">
+          <ul class="tarif-items">
+            <li>Mises à jour de contenu</li>
+            <li>Corrections de bugs</li>
+            <li>Renouvellement domaine & hébergement</li>
+            <li>Support WhatsApp prioritaire</li>
+            <li>Sauvegardes régulières</li>
+            <li>Rapport mensuel de suivi</li>
+            <li>1er mois offert à la livraison</li>
+          </ul>
+          <a href="index.html#contact" class="tarif-cta">Souscrire</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="cta-final-inner">
+    <span class="cta-final-tag">Passons à l'action</span>
+    <h2>Votre entreprise mérite d'être <em>visible.</em></h2>
+    <p>Chaque projet est unique, nous concevons votre site en fonction de vos objetifs.<br>(vente, visibilité, automatisation...)</p>
+    <p>Devis gratuit en 30 minutes. Aucun engagement avant signature. On répond sur WhatsApp, 7j/7.</p>
+    <div class="cta-final-btns">
+      <a href="index.html#contact" class="btn btn-orange btn-arrow">Demander un devis gratuit</a>
+      <a href="portfolio.html" class="btn btn-outline">Voir nos réalisations</a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <img src="logo1.png" alt="DigitCI Agency" class="footer-logo">
+      <p>L'agence web de référence pour les PME de Côte d'Ivoire. Sites professionnels, livrés vite, maintenus longtemps.</p>
+    </div>
+    <div>
+      <div class="footer-col-title">Navigation</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Accueil</a></li>
+        <li><a href="portfolio.html">Portfolio</a></li>
+        <li><a href="apropos.html">À propos</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Services</div>
+      <ul class="footer-links">
+        <li><a href="index.html#contact">Site personnalisé</a></li>
+        <li><a href="index.html#contact">Formulaire & automatisation</a></li>
+        <li><a href="index.html#contact">Maintenance</a></li>
+        <li><a href="index.html#contact">Domaine & Hébergement</a></li>
+      </ul>
+    </div>
+    <div>
+      <div class="footer-col-title">Contact</div>
+      <ul class="footer-links">
+        <li><a href="tel:+2250788060718">+225 07 88 06 07 18</a></li>
+        <li><a href="mailto:digitciagency@outlook.fr">digitciagency@outlook.fr</a></li>
+        <li><a href="https://digitci.ci">www.digitci.ci</a></li>
+        <li><a href="#">Abidjan, Côte d'Ivoire</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 <span>DigitCI Agency</span>. Tous droits réservés.</p>
+    <p>On crée. On maintient. <span>Vous grandissez.</span></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
