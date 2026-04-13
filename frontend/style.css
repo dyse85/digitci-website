@@ -75,12 +75,7 @@ a { text-decoration: none; color: inherit; }
   padding: 28px 64px;
   display: flex; justify-content: space-between; align-items: center;
   transition: padding 0.4s var(--ease-out), background 0.4s;
-}
-.navbar.scrolled {
-  padding: 16px 64px;
-  background: rgba(8,8,8,0.94);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid rgba(249,115,22,0.08);
+  background-color: rgba(8,8,8,0.94);
 }
 .nav-logo {
   display: flex; align-items: center; gap: 0;
@@ -232,7 +227,7 @@ a { text-decoration: none; color: inherit; }
   .burger { display: flex; }
   .nav-links {
     display: none;
-    position: absolute; inset: 0;
+    position: fixed; inset: 0;
     background: rgba(8,8,8,0.98);
     flex-direction: column;
     justify-content: center; align-items: center;
