@@ -116,19 +116,25 @@ if (navbar) {
 }
 
 // ── BURGER MENU ──
-const burger = document.getElementById('burger');
-const navLinks = document.getElementById('navLinks');
+const burger   = document.getElementById('burger');
+const navLinks = document.querySelector('navLinks');
+
 if (burger && navLinks) {
-  burger.addEventListener('click', () => {
-    burger.classList.toggle('active');
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      burger.classList.remove('active');
-      navLinks.classList.remove('open');
+    burger.addEventListener('click', function() {
+        burger.classList.toggle('active');
+        navLinks.classList.toggle('active');
+        navbar.classList.toggle('menu-open');
+        document.body.classList.toggle('menu-open');
     });
-  });
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            burger.classList.remove('active');
+            navLinks.classList.remove('active');
+            navbar.classList.remove('menu-open');
+            document.body.classList.remove('menu-open');
+        });
+    });
 }
 
 // ── SCROLL ANIMATIONS ──
